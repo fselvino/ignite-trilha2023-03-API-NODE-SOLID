@@ -1,11 +1,19 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 //import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository'
 import { hash } from 'bcryptjs'
 import { InMemoryUserRepository } from '@/repositories/ in-memory/in-memory-users-repository'
 import { AuthenticateUseCase } from './authenticate'
 import { InvalidCredentialError } from './errors/invalid-credentis-error'
 
+let usersRepository: InMemoryUserRepository
+let sut: AuthenticateUseCase
+
 describe('Authenticate use Case', () => {
+
+  beforeEach(() => {
+    usersRepository = new InMemoryUserRepository()
+    sut = new AuthenticateUseCase(usersRepository) //sut - system under t
+  })
 
   it('should be able to authenticate', async () => {
 
