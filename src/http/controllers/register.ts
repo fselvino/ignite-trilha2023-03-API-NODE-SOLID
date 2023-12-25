@@ -3,6 +3,7 @@ import { z } from "zod"
 import { RegisterUseCase } from "@/use-cases/register"
 import { PrismaUsersRepository } from "@/repositories/prisma/prisma-users-repository"
 import { UserAlreadyExistsError } from "@/use-cases/errors/user-alrady-exists"
+import { makeRegisterUseCase } from "@/use-cases/factories/make-resgister-use-case"
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
 
@@ -17,9 +18,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 
   try {
 
-    const usersRepository = new PrismaUsersRepository
-
-    const registerUseCase = new RegisterUseCase(usersRepository)//port inversão de dependencia repasso as dependicas do repositorio para o caso de uso
+  const registerUseCase =  makeRegisterUseCase()
 
     await registerUseCase.execute({
       name,
