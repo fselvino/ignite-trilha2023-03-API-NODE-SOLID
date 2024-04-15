@@ -2,7 +2,7 @@ import { User, Prisma } from "@prisma/client";
 import { UsersRepository } from "../users-repository";
 
 export class InMemoryUserRepository implements UsersRepository {
- 
+
 
   public itens: User[] = []
 
